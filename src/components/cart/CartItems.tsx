@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { Minus, Plus, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -35,20 +35,22 @@ export const CartItems = () => {
 
   const { updateCart } = useCart();
 
+  useEffect(() => {
+    updateCart(items);
+  }, [items, updateCart]);
+
   const updateQuantity = (id: string, change: number) => {
     const newItems = items.map((item) =>
       item.id === id
         ? { ...item, quantity: Math.max(0, item.quantity + change) }
         : item
-    );
+    ).filter((item) => item.quantity > 0);
     setItems(newItems);
-    updateCart(newItems);
   };
 
   const removeItem = (id: string) => {
     const newItems = items.filter((item) => item.id !== id);
     setItems(newItems);
-    updateCart(newItems);
   };
 
   return (

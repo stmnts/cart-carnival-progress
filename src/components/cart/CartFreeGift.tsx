@@ -23,12 +23,14 @@ export const CartFreeGift = () => {
             <span className="text-sm text-cart-accent font-medium">Free</span>
           </div>
           <p className="text-xs text-cart-muted">
-            {isUnlocked
-              ? "Unlocked!"
-              : `Add $${remaining.toFixed(2)} to unlock your free gift!`}
+            {isUnlocked ? (
+              <span className="text-cart-accent font-medium">Unlocked!</span>
+            ) : (
+              `Add $${remaining.toFixed(2)} to unlock your free gift!`
+            )}
           </p>
         </div>
-        <Gift className="w-4 h-4 text-cart-primary self-start" />
+        <Gift className={`w-4 h-4 ${isUnlocked ? 'text-cart-accent' : 'text-cart-primary'} self-start`} />
       </div>
     </div>
   );
