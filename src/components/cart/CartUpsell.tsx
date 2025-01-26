@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useCart } from "./CartItems";
 import {
   Select,
   SelectContent,
@@ -10,6 +11,20 @@ import {
 
 export const CartUpsell = () => {
   const [showVariants, setShowVariants] = useState(false);
+  const [selectedSize, setSelectedSize] = useState("");
+  const { addItem } = useCart();
+
+  const handleAddToCart = () => {
+    if (!selectedSize) return;
+    
+    addItem({
+      id: "upsell-1",
+      title: "Related Product",
+      price: 29.99,
+      quantity: 1,
+      image: "/placeholder.svg",
+    });
+  };
 
   return (
     <div className="p-3 bg-cart-secondary rounded-lg">
@@ -27,7 +42,12 @@ export const CartUpsell = () => {
             <span className="text-sm text-cart-primary font-medium">$29.99</span>
           </div>
           <div className="flex items-center gap-2">
-            <Select open={showVariants} onOpenChange={setShowVariants}>
+            <Select 
+              open={showVariants} 
+              onOpenChange={setShowVariants}
+              value={selectedSize}
+              onValueChange={setSelectedSize}
+            >
               <SelectTrigger className="h-7 text-xs min-w-[80px] flex-grow-0">
                 <SelectValue placeholder="Size" />
               </SelectTrigger>
@@ -37,7 +57,11 @@ export const CartUpsell = () => {
                 <SelectItem value="l">Large</SelectItem>
               </SelectContent>
             </Select>
-            <Button className="h-7 text-xs bg-cart-primary hover:bg-cart-primary/90 ml-auto">
+            <Button 
+              className="h-7 text-xs bg-cart-primary hover:bg-cart-primary/90 ml-auto"
+              onClick={handleAddToCart}
+              disabled={!selectedSize}
+            >
               Add
             </Button>
           </div>
