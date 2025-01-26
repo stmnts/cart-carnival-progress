@@ -30,8 +30,8 @@ export const CartProgress = () => {
 
         <div className="relative h-2 bg-gray-200 rounded-full">
           <div
-            className="absolute h-full bg-cart-primary rounded-full transition-all duration-500 ease-out"
-            style={{ width: `${progress}%`, "--progress-width": `${progress}%` }}
+            className="absolute h-full bg-cart-primary rounded-full transition-all duration-500 ease-out animate-progress-fill"
+            style={{ width: `${progress}%` }}
           />
           {milestones.map(({ value, icon: Icon, reached }, index) => {
             const position = (value / maxValue) * 100;
